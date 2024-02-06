@@ -1,41 +1,39 @@
 #include "Product.h"
+#include <iomanip>
+#include <sstream>
 
 class Item
 {
-    
-    public: 
-        
-        Product product;
 
-        Item(Product& product_) 
-            : product(product_){
+    public: 
+
+        Product product;
+        
+        Item(Product& product) : product(product), quantity(1){
         }
 
         void add()
         {
             quantity++;
-            update_price();
-        }
-    
-        int getQuantity()
-        {
-            return quantity;
         }
 
-        double getTotalPrice()
+        double getItemPrice() const
         { 
-            return total_price;
+            return product.getPrice() * quantity;
         }
-    
-    private:
 
-        int quantity=1;
-        double total_price=product.getPrice();
-
-        void update_price()
+        std::string getItemInfo() const
         {
-            total_price = product.getPrice() * quantity;
+            std::ostringstream oss;
+            oss << std::fixed << std::setprecision(2) << quantity << " x " << product.getName() << ": $" << getItemPrice();
+
+            return oss.str();
         }
+
+    private:
+ 
+        int quantity;
+
 };
 
 

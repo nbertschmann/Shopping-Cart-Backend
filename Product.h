@@ -3,6 +3,8 @@
 
 #include<iostream>
 #include<string>
+#include <iomanip>
+#include <sstream>
 
 class Product
 { 
@@ -12,9 +14,12 @@ class Product
             : id(ID), name(Name), price(Price){
          }
 
-        void print_details()
+        std::string getDisplayName() const
         {
-            std::cout << "(" << id << ")" << name.substr(1) << ": " << "$" << price << std::endl;
+            std::ostringstream oss;
+            oss << "(" << std::string(1, id) << ")" << name.substr(1) << ": $" << std::fixed << std::setprecision(2) << price << '\n';
+            return oss.str();
+    
         }
 
         char getId() const
@@ -22,12 +27,12 @@ class Product
             return id;
         }
 
-        std::string getName()
+        std::string getName() const
         {
             return name;
         }
 
-        double getPrice()
+        double getPrice() const
         {
             return price;
         }
@@ -37,8 +42,6 @@ class Product
         char id;
         std::string name;
         double price;
-
-       
 };
 
 #endif // PRODUCT_H

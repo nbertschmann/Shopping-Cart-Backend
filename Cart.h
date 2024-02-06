@@ -1,4 +1,6 @@
 #include<vector>
+#include <iomanip>
+#include <sstream>
 #include "Item.h"
 #include "Product.h"
 
@@ -6,17 +8,17 @@ class Cart
 {
     public:
         
-        std::vector<Item> item_list;
-
-        void addItem(Product& product) 
+        Cart() : item_list(), cart_price(0) {}
+        
+        void addProduct(Product& product) 
         {
             bool is_new_item = true;
             
-            for(Item& item_ : item_list)
+            for(Item& item : item_list)
             {
-                if(item_.product.getId() == product.getId())
+                if(item.product.getId() == product.getId())
                 {
-                    item_.add();
+                    item.add();
                     is_new_item = false;
                     break;
                 }
@@ -29,40 +31,35 @@ class Cart
             }
 
             updatePrice(product.getPrice());
-            showAddedProduct(product);
-        }
-    
-        void showAddedProduct(Product product)
-        {
-            std::cout << std::endl <<"Added " << product.getName() << " to Cart : " << "$" << product.getPrice() << std::endl;
+            std::cout <<showAddedProduct(product);
         }
         
-        void showCart()
+        void viewCart() const
         {
-            std::cout<<"------------------------------"<<std::endl;
+            std::cout<<SeparatorLine<<std::endl;
 
             if(item_list.empty())
             {
-                std::cout << "Cart is Empty" << std::endl;
+                std::cout << CartEmptyMessage << std::endl;
+            }
+  
+            for(const Item x : item_list)
+            {
+                std::cout << x.getItemInfo() << std::endl;
             }
 
-            else
-            {
-                for(Item x : item_list)
-                {
-                    printItem(x);
-                }
-
-                showPrice();
-            } 
+            std::cout << showTotalPrice();
+           
         }
 
-        void showPrice()
+        std::string showTotalPrice() const
         {
-            std::cout << "Total: " << cart_price << std::endl;
+            std::ostringstream oss;
+            oss << "Total: $" << std::fixed << std::setprecision(2) << cart_price << '\n';
+            return oss.str();
         }
 
-        double getCartPrice()
+        double getCartPrice() const
         {
             return cart_price;
         }
@@ -75,15 +72,24 @@ class Cart
 
     private: 
 
+        std::vector<Item> item_list;
         double cart_price = 0;
+
+        static const std::string SeparatorLine;
+        static const std::string CartEmptyMessage;
         
         void updatePrice(double price)
         {
             cart_price += price;
         }
 
-        void printItem(Item item)
+        std::string showAddedProduct(const Product& product) const
         {
-            std::cout<< item.getQuantity() << " x " << item.product.getName() << ": $" << item.getTotalPrice() << std::endl;
+            std::ostringstream oss;
+            oss << "\nAdded " << product.getName() << " to Cart : $" << std::fixed << std::setprecision(2) << product.getPrice() << "\n";
+            return oss.str();
         }
 };
+
+const std::string Cart::SeparatorLine = "------------------------------";
+const std::string Cart::CartEmptyMessage = "Cart is Empty";
