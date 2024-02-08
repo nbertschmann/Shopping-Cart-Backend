@@ -9,26 +9,11 @@ class Item
 
         Product product;
         
-        Item(Product& product) : product(product), quantity(1){
-        }
+        Item(Product& product);
 
-        void add()
-        {
-            quantity++;
-        }
-
-        double getItemPrice() const
-        { 
-            return product.getPrice() * quantity;
-        }
-
-        std::string getItemInfo() const
-        {
-            std::ostringstream oss;
-            oss << std::fixed << std::setprecision(2) << quantity << " x " << product.getName() << ": $" << getItemPrice();
-
-            return oss.str();
-        }
+        void add();
+        double getItemPrice() const;
+        std::string getItemInfo() const;
 
     private:
  
