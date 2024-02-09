@@ -1,3 +1,6 @@
+#ifndef ITEM_H
+#define ITEM_H
+
 #include "Product.h"
 #include <iomanip>
 #include <sstream>
@@ -9,26 +12,13 @@ class Item
 
         Product product;
         
-        Item(Product& product) : product(product), quantity(1){
-        }
+        Item(Product& product);
 
-        void add()
-        {
-            quantity++;
-        }
+        void add();
 
-        double getItemPrice() const
-        { 
-            return product.getPrice() * quantity;
-        }
+        double getItemPrice() const;
 
-        std::string getItemInfo() const
-        {
-            std::ostringstream oss;
-            oss << std::fixed << std::setprecision(2) << quantity << " x " << product.getName() << ": $" << getItemPrice();
-
-            return oss.str();
-        }
+        std::string getItemInfo() const;
 
     private:
  
@@ -37,3 +27,4 @@ class Item
 };
 
 
+#endif
