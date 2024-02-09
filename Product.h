@@ -3,39 +3,22 @@
 
 #include<iostream>
 #include<string>
-#include <iomanip>
-#include <sstream>
+#include<iomanip>
+#include<sstream>
 
 class Product
 { 
     public:
         
-        Product(int ID, std::string Name, double Price) 
-            : id(ID), name(Name), price(Price){
-         }
+        Product(int ID, std::string Name, double Price);
 
-        std::string getDisplayName() const
-        {
-            std::ostringstream oss;
-            oss << "(" << std::string(1, id) << ")" << name.substr(1) << ": $" << std::fixed << std::setprecision(2) << price << '\n';
-            return oss.str();
-    
-        }
+        std::string getDisplayName() const;
 
-        char getId() const
-        {
-            return id;
-        }
+        char getId() const;
 
-        std::string getName() const
-        {
-            return name;
-        }
+        std::string getName() const;
 
-        double getPrice() const
-        {
-            return price;
-        }
+        double getPrice() const;
     
     private:
 
