@@ -28,11 +28,11 @@ void Cart::addProduct(Product& product)
 
 void Cart::viewCart() const
 {
-    std::cout<<SeparatorLine<<std::endl;
+    std::cout<<"-------------------------------------"<<std::endl;
 
     if(item_list.empty())
     {
-        std::cout << CartEmptyMessage << std::endl;
+        std::cout << "Cart is Empty" << std::endl;
     }
 
     for(const Item x : item_list)
