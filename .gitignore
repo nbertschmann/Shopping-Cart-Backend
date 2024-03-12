@@ -2,3 +2,4 @@ TempCodeRunnerFile.cpp
 *.exe
 .vscode/
 *.o
+build
